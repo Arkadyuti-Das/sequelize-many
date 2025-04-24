@@ -27,10 +27,20 @@ async function main(){
         }, {
             timestamps: false
         });
+
+        const junctionModel=sequelize.define("customerProduct", {
+            customerProductId:{
+                type: DataTypes.INTEGER,
+                primaryKey: true,
+                autoIncrement: true
+            }
+        }, {
+            timestamps: false
+        });
  
         //Set the associations
-        customerModel.belongsToMany(productModel, {through: 'customerProductModel'});
-        productModel.belongsToMany(customerModel, {through: 'customerProductModel'});
+        customerModel.belongsToMany(productModel, {through: junctionModel});
+        productModel.belongsToMany(customerModel, {through: junctionModel});
  
         //Sync the models
         await sequelize.sync({alter: true});
