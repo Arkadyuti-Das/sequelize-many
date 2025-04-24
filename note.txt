@@ -139,3 +139,7 @@ customer.addProducts(products);
 const product=await productModel.findOne({where: {productName: 'Laptop'}});
 const customers=await customerModel.findAll();
 product.addCustomers(customers);
+
+onDelete and onUpdate with many to many
+=======================================
+They are set to "CASCADE" by default.

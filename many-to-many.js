@@ -46,9 +46,7 @@ async function main(){
         await sequelize.sync({alter: true});
         console.log("Models are synced");
  
-        const product=await productModel.findOne({where: {productName: 'Laptop'}});
-        const customers=await customerModel.findAll();
-        product.addCustomers(customers);
+        await customerModel.destroy({where: {customerName: 'James'}});
  
         //Bulk create
         // await customerModel.bulkCreate([{customerName: 'James'}, {customerName: 'Jamie'}, {customerName: 'Tom'}, {customerName: 'Greg'}, {customerName: 'Jason'}]);
