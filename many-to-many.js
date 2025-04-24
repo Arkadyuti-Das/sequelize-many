@@ -52,8 +52,8 @@ async function main(){
    
  
         //Bulk create
-        // await userModel.bulkCreate([{username: 'user1', password: 'abcd'}, {username: 'user2', password: 'mnop'}, {username: 'user3', password: 'qrst'}]);
-        // await postModel.bulkCreate([{message: 'This is some message from me'}, {message: 'This is some message from me'}, {message: 'This is some message from me'}, {message: 'This is some message from me'}, {message: 'This is some message from me'}]);
+        // await customerModel.bulkCreate([{customerName: 'James'}, {customerName: 'Jamie'}, {customerName: 'Tom'}, {customerName: 'Greg'}, {customerName: 'Jason'}]);
+        // await productModel.bulkCreate([{productName: 'Laptop'}, {productName: 'Mobile'}, {productName: 'Headphones'}, {productName: 'Fruits'}, {productName: 'Vegetables'}]);
         // console.log("Data added");
     }
     catch(error){
