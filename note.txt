@@ -95,3 +95,47 @@ belongsTo helper methods
 const user=await userModel.findOne({where: {username: 'user2'}});
 const post=await postModel.findOne();
 await post.setUser(user);
+
+
+=========================
+Many to many association
+=========================
+It occurs when multiple records or rows in a table are associated with multiple records or rows in another table.
+Eg- a customer can purchase many products and a product can be purchased by many customers.
+
+In relational databases we cannot directly implement many  to many.We can do this by two one-to-many realtionships using a third table called a join table. Each record or row of the join table will contain the primary keys of both the tables. In sequelize a join table is called a junction model.
+
+Association where a child table (join table) contains two foreign key columns referencing the primary key column of the two parent tables.
+Each foreign key column can contain multiple occurrences of each foreign key.
+Created with BelongsToMany() and BelongsToMany()
+
+Creating our own junction table
+===============================
+const junctionModel=sequelize.define("customerProduct", {
+            customerProductId:{
+                type: DataTypes.INTEGER,
+                primaryKey: true,
+                autoIncrement: true
+            }
+    }, {
+        timestamps: false
+});
+ 
+//Set the associations
+customerModel.belongsToMany(productModel, {through: junctionModel});
+productModel.belongsToMany(customerModel, {through: junctionModel});
+
+belongsToMany helper functions
+==============================
+So why we not using add<childmodel> name??
+Because in many to many the name of the association takes place and not the direction of the relationship.
+
+//Adding every product to a customer
+const customer=await customerModel.findOne({where: {customerName: 'James'}});
+const products=await productModel.findAll();
+customer.addProducts(products);
+
+//Adding a product to every customer
+const product=await productModel.findOne({where: {productName: 'Laptop'}});
+const customers=await customerModel.findAll();
+product.addCustomers(customers);
