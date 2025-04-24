@@ -1,0 +1,97 @@
+Associations
+============
+Accociations are relationships between tables in a database. 
+These relationships are established with foreign keys. 
+The primary key from parent table appears in foreign key column on child table.
+ 
+child table- table with foreign key column (can't survive on its own).
+parent table- table whose primary key are referenced by the child table.
+ 
+There are 3 types of associations: One-To-One, One-To-Many and Many-To-Many.
+ 
+To establish these standard associations in sequelize we are provided with 4 methods-
+1) The HasOne association
+2) The BelongsTo association
+3) The HasMany association
+4) The BelongsToMany association
+ 
+One to One Association
+======================
+It means one row of a table can be linked with atmost one row in another table.
+ 
+To create a one to one relationship with sequelize we use the hasOne() with the belongsTo()
+ 
+hasOne()
+--------
+We call it with the parent method and pass the child as an argument (The table that has the foreign key).
+It takes a second argument option. the option has many keys.
+ 
+countryModel.hasOne(capitalModel, {
+    foreignKey: 'CountryFK'
+});
+ 
+hasOne helper functions()
+-------------------------
+hasOne() gives the methods get, set and create followed by the child model name. So the methods we are provided are-
+ 
+get()=>
+-------
+const country=await countryModel.findOne({where:{countryName: 'India'}});
+const result=await country.getCapital();
+console.log(result.capitalName);
+ 
+set =>
+-----
+const country=await countryModel.findOne({where:{countryName: 'India'}});
+const capital=await capitalModel.findOne({where: {capitalName: 'New Delhi'}});
+await country.setCapital(capital);
+ 
+create =>
+--------
+const country=await countryModel.create({countryName: 'USA'});
+const result=await country.createCapital({capitalName: 'Washington DC'});
+console.log(result);
+ 
+belongTo helper methods
+===========================
+get =>
+------
+const capital=await capitalModel.findOne({capitalName: 'Paris'});
+const country=await capital.getCountry();
+console.log(country);
+ 
+set =>
+------
+const country=await countryModel.findOne({where: {countryName: 'France'}});
+const capital=await capitalModel.findOne({where: {capitalName: 'Paris'}});
+await capital.setCountry(country);
+ 
+(We need both the hasOne and belongTo as they work on the source model)
+ 
+The difference between hasOne and belongsTo
+============================================
+hasOne() is exclusive to one to one relationships while belongsTo can be used in one to many relationships as well.
+ 
+ 
+==============================================
+One to many association
+==============================================
+Association where the primary key from parent table may appear in foreign key column on child table more than once.
+ 
+To create a One-To-Many relationship, the hasMany and belongsTo associations are used together.
+ 
+hasMany helper methods
+======================
+const user=await userModel.findOne({where: {username: 'user1'}});
+const posts=await postModel.findAll();
+await user.addPosts(posts);
+ 
+const user=await userModel.findOne({where: {username: 'user1'}});
+const result=await user.countPosts();
+console.log(result);
+ 
+belongsTo helper methods
+========================
+const user=await userModel.findOne({where: {username: 'user2'}});
+const post=await postModel.findOne();
+await post.setUser(user);

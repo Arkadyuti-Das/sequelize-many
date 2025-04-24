@@ -1,0 +1,20 @@
+{
+  "name": "sequelize-association",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon many-to-many.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "dependencies": {
+    "mysql2": "^3.14.0",
+    "sequelize": "^6.37.7"
+  }
+}
